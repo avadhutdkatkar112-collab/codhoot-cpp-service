@@ -19,8 +19,8 @@ const (
 	defaultTimeout   = 15 * time.Second
 	maxOutputSize    = 512 * 1024
 	maxSourceSize    = 100 * 1024
-	maxExecTime      = 5 * time.Second
-	maxCompileTime   = 12 * time.Second
+	maxExecTime      = 10 * time.Second
+	maxCompileTime   = 20 * time.Second
 	workspaceDir     = "/tmp/codhoot-workspace"
 )
 
