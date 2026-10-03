@@ -9,7 +9,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/service .
 FROM alpine:3.19@sha256:b58899f069c47216f6002a6850143dc6fae0d35eb8b0df9300bbe6327b9c2171
 LABEL org.opencontainers.image.title="codhoot-cpp-service"
 LABEL org.opencontainers.image.description="Hardened cpp execution sandbox"
-RUN apk add --no-cache g++ libc-dev make
+RUN apk add --no-cache g++ libc-dev
 WORKDIR /app
 COPY --from=builder /out/service /app/service
 RUN chmod 0755 /app/service && rm -f go.mod main.go harden.go harden_unix.go harden_other.go
@@ -42,6 +42,7 @@ RUN set -eu; \
 # There is deliberately no HEALTHCHECK here: it would require curl or wget in the
 # image, and Render already health-checks /health over HTTP. Adding a network
 # client purely for a healthcheck would enlarge the attack surface for no gain.
+
 ENV PORT=8081
 EXPOSE 8081
 CMD ["/app/service"]
